@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 import requests  # Added for fetching data from GitHub
+import io
 
 st.title("Employee Attrition Prediction")
 
@@ -19,7 +20,7 @@ def fetch_data_from_github(url):
 csv_data = fetch_data_from_github(github_raw_csv_url)
 
 # Load data into a DataFrame
-df = pd.read_csv(pd.compat.StringIO(csv_data))
+df = pd.read_csv(io.StringIO(csv_data))
 
 # Data preprocessing
 from sklearn.preprocessing import LabelEncoder
