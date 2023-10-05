@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
 import requests
 import io
 
@@ -19,7 +20,11 @@ def fetch_data_from_github(url):
 csv_data = fetch_data_from_github(github_raw_csv_url)
 
 # Load data into a DataFrame
-df = pd.read_csv(io.StringIO(csv_data))
+try:
+    df = pd.read_csv(io.StringIO(csv_data))
+except Exception as e:
+    st.error(f"Error loading data: {str(e)}")
+    st.stop()
 
 # Data preprocessing
 labelencoder = LabelEncoder()
@@ -31,8 +36,22 @@ for column in df.columns:
 X = df.drop('Attrition', axis=1)
 y = df['Attrition']
 
+# Check if there's enough data for splitting
+if len(df) < 2:
+    st.error("Not enough data for splitting. Make sure your dataset contains multiple rows.")
+    st.stop()
+
 # Split data into train and test sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+try:
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+except Exception as e:
+    st.error(f"Error splitting data: {str(e)}")
+    st.stop()
+
+# Check if there's enough data in the train/test sets
+if len(X_train) == 0 or len(X_test) == 0:
+    st.error("Not enough data in train/test sets. Check your dataset or splitting parameters.")
+    st.stop()
 
 # Train a logistic regression model
 logreg = LogisticRegression()
