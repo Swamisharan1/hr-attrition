@@ -1,15 +1,14 @@
 import streamlit as st
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
-import requests  # Added for fetching data from GitHub
+from sklearn.preprocessing import LabelEncoder
+import requests
 import io
 
 st.title("Employee Attrition Prediction")
 
 # GitHub raw CSV URL
-github_raw_csv_url = 'https://raw.githubusercontent.com/yourusername/yourrepository/main/HR-Employee-Attrition.csv'
+github_raw_csv_url = 'https://raw.githubusercontent.com/Swamisharan1/hr-attrition/main/HR-Employee-Attrition.csv'
 
 # Function to fetch data from GitHub
 def fetch_data_from_github(url):
@@ -23,7 +22,6 @@ csv_data = fetch_data_from_github(github_raw_csv_url)
 df = pd.read_csv(io.StringIO(csv_data))
 
 # Data preprocessing
-from sklearn.preprocessing import LabelEncoder
 labelencoder = LabelEncoder()
 
 for column in df.columns:
