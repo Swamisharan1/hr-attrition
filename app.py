@@ -8,7 +8,7 @@ import requests  # Added for fetching data from GitHub
 st.title("Employee Attrition Prediction")
 
 # GitHub raw CSV URL
-github_raw_csv_url = 'https://raw.githubusercontent.com/Swamisharan1/hr-attrition/main/HR-Employee-Attrition.csv'
+github_raw_csv_url = 'https://raw.githubusercontent.com/yourusername/yourrepository/main/HR-Employee-Attrition.csv'
 
 # Function to fetch data from GitHub
 def fetch_data_from_github(url):
