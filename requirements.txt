@@ -4,4 +4,5 @@ pandas
 tabulate
 seaborn
 matplotlib
-imbalanced-learn
+imbalanced-learn==0.8.1
+
