@@ -13,7 +13,7 @@ st.title("Employee Attrition Prediction")
 st.write("This app predicts employee attrition using a Random Forest Classifier.")
 
 # GitHub raw CSV URL
-github_raw_csv_url = 'https://raw.githubusercontent.com/Swamisharan1/hr-attrition/main/HR-Employee-Attrition.csv'
+github_raw_csv_url = 'https://raw.githubusercontent.com/yourusername/yourrepository/main/HR-Employee-Attrition.csv'
 
 # Function to fetch data from GitHub
 def fetch_data_from_github(url):
@@ -32,6 +32,9 @@ except Exception as e:
 
 # Copy the DataFrame
 df = df1.copy()
+
+# Drop the 'StandardHours' column
+df.drop(columns=['StandardHours'], inplace=True)
 
 # Label encode the 'Attrition' column
 label_encoder = LabelEncoder()
@@ -63,10 +66,10 @@ rf_classifier.fit(X_train, y_train)
 st.header("Predict Employee Attrition")
 st.write("Enter employee data for prediction:")
 
-# Create input fields for the user to enter data
+# Create input fields for the user to enter data (integer values)
 input_data = {}
 for col in X.columns:
-    input_data[col] = st.number_input(col)
+    input_data[col] = st.number_input(col, step=1)
 
 if st.button("Predict"):
     # Convert input data to a DataFrame
