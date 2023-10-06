@@ -1,8 +1,9 @@
+imbalanced-learn
 scikit-learn
 numpy
 pandas
 tabulate
 seaborn
 matplotlib
-imbalanced-learn==0.8.1
+
 
